@@ -1,5 +1,5 @@
 export default class FetchData{
-    constructor(url, uniqueID){
+    constructor(url){
         this.url = url;
     }
 
