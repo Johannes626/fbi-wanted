@@ -14,7 +14,7 @@ function NavBarComponent() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
+                        <Nav.Link href="link">Link</Nav.Link>
                         <NavDropdown title="More" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">About</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">Creator Info</NavDropdown.Item>

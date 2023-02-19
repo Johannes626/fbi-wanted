@@ -1,8 +1,9 @@
 import './App.css';
 import FetchData from './components/APIProxy';
 import NavBarComponent from './components/NavBarComponent'
-// import CriminalCard from './components/CriminalCard'
-// import {useEffect, useState} from 'react';
+import CriminalCard from './components/CriminalCard'
+import CriminalModal from './components/CriminalModal';
+import {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Col, Row, Button, Container } from 'react-bootstrap';
 import {
@@ -14,48 +15,34 @@ import {useQuery} from '@tanstack/react-query'
 
 function App() {
   /* const [fbiData, setFbiData] = useState([])*/
-  
+  const [modalShow, setModalShow] = useState(false);
+  const [modalData, setModalData] = useState({});
+
   const fetchFBIData = new FetchData('https://api.fbi.gov/@wanted?pageSize=20&page=1&sort_on=modified&sort_order=desc')
   
+
   const {data, isLoading, isError} = useQuery(['_fbiData'], ()=>{
     return fetchFBIData.getData().then((fbiData) => fbiData?.items?.map((datum)=> ({
       ...datum,
     isSelected: true
     })))
   });
-  console.log(data)
-  // useEffect(() => {
-  //   fetchFBIData.getData()
-  //   .then(data => setFbiData(data.items.map((datum) => ({
-  //     ...datum,
-  //     isSelected: true
-  //   }))))
-  // }, [])
+  console.log(data) // QUESTION: react query is supposed to be caching, but the loading screen come up no matter what
+                              // which makes me think its not caching
 
-  // console.log(fbiData)
+  const handleCriminalCardClick = (e) => {
+    setModalShow(true);
+    (data || []).map((item)=>{
+      if(e.target.name === item.uid){
+        setModalData(item) // QUESTION: finds item to compare and then use to fill modal data, is this best practice?
+      }
+    })
+  }
+  console.log(modalData)
 
-  // react query - how can you update the apiProxy to use that
-  // styling fixes and module renaming/refactor
-  // add learn more page
-  
-  const wantedIndividual = data?.item?.map(fbiItem => 
-  fbiItem?.isSelected && (
-    <Col key={fbiItem?.uid}>
-      <Card style={{ width: '19rem', height: '34rem'}} className="overflow-hidden mx-auto" >
-        <Card.Img style={{objectFit: 'cover', width: '100%', minHeight: '18rem', maxHeight: '20vh' }} variant="top" src={fbiItem?.images?.[0]?.thumb} className="img-thumbnail"/>
-        <Card.Body >
-        <Card.Title className="">{fbiItem?.title}</Card.Title>
-        {fbiItem?.aliases ? <Card.Subtitle>Aliases: {fbiItem?.aliases}</Card.Subtitle> : <Card.Subtitle>Aliases: N/A</Card.Subtitle>}
-        <Card.Text>
-          {fbiItem?.description}
-        </Card.Text >
-        <Card.Footer>
-          <Button variant="dark">Learn More</Button>
-        </Card.Footer>
-        </Card.Body>
-      </Card>
-    </Col>
-  ))
+  // react query - how can you update the apiProxy to use that --DONE
+  // styling fixes and module renaming/refactor --SEMI COMPLETE
+  // add learn more page --SEMI COMPLETE
 
   // const filterCriminals = (e) => {
   //   const searchTerm = e.target.value
@@ -67,20 +54,17 @@ function App() {
   //     }
   //   })
   // }
-
-  return (
-    <div className="App">
-        {/* <input onChange={filterCriminals}/> */}
-        <NavBarComponent/>
-        <Routes>
-          <Route path="/" element={
-            <Container breakpoint="xxl" className="mx-auto" >
-              <Row className="g-3 py-1">{isLoading ? "Loading": wantedIndividual}</Row>
-            </Container>}
-          />
-        </Routes>
-    </div>
-  );
+    return (
+      <div className="App">
+          {/* <input onChange={filterCriminals}/> */}
+          <NavBarComponent/>
+          <CriminalModal modalShow={modalShow} hideModal={()=>{setModalShow(false)}} modalData={modalData}/>
+          <Routes>
+              <Route path="/" element={isLoading ? "Loading..." : <CriminalCard data={data} handleCriminalCardClick={handleCriminalCardClick}/>}/>
+              <Route path="link" element={<h2>HELLO THERE</h2>}/>
+          </Routes>
+      </div>
+    );
 }
 
 export default App;
