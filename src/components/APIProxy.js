@@ -13,9 +13,3 @@ export default class FetchData {
     }
   }
 }
-
-// https://marcrodrigfelix.github.io/fetch_request_with_a_js_class
-
-// https://getbootstrap.com/docs/5.2/getting-started/introduction/
-
-// https://react-bootstrap.netlify.app/layout/breakpoints/

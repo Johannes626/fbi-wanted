@@ -1,4 +1,3 @@
-import './App.css';
 import FetchData from './components/APIProxy';
 import NavBarComponent from './components/NavBarComponent';
 import CriminalPage from './components/CriminalPage';
@@ -10,7 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 function App() {
-  //dangerouslysetinnerhtml
+  
   const [modalShow, setModalShow] = useState(false);
   const [modalData, setModalData] = useState({});
 
@@ -28,6 +27,7 @@ function App() {
     },
     { staleTime: Infinity },
   );
+  console.log(data)
 
   const handleCriminalCardClick = e => {
     const cardToFind = (data || []).find(item => {
@@ -38,6 +38,7 @@ function App() {
       setModalShow(true);
     }
   };
+  // -------SEARCH FUNCTION COMPLETE, HOWEVER I WOULD LIKE TO WAIT FOR IMPLIMENTATION-------
   // const filterCriminals = (e) => {
   //   const searchTerm = e.target.value
   //   const fbiData = data;
@@ -48,9 +49,10 @@ function App() {
   //     }
   //   })
   // }
+  // ---------------------------------------------------------------------------------
   return (
     <div className="App">
-      {/* <input onChange={filterCriminals}/> */}
+      {/* <input onChange={filterCriminals}/> -----WAITING TO IMPLEMENT-----*/ } 
       <NavBarComponent />
       <CriminalModal
         modalShow={modalShow}
@@ -72,10 +74,12 @@ function App() {
             )
           }
         />
-        <Route path="link" element={<h2>HELLO THERE</h2>} />
+        <Route path="link" element={<h2>THIS PART OF THE APPLICATION IS STILL BEING DEVELOPED, UPDATES COMING SOON!</h2>} />
       </Routes>
     </div>
   );
 }
 
 export default App;
+
+//dangerouslysetinnerhtml - future potential use to fix description information from API

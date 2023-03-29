@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Col, Row, Container, Nav, Navbar, NavDropdown, Alert } from 'react-bootstrap';
+import styles from './NavBarComponent.modules.css';
 
 function NavBarComponent() {
   return (
@@ -30,7 +31,7 @@ function NavBarComponent() {
           </Col>
         </Row>
         <Row className="px-4 my-3">
-          <Card className="text-center bg-light noMarginTop">
+          <Card className="text-center bg-light" styles={styles.div.noMarginTop}>
             <Card.Body className="">
               If you see any of these individuals, do not approach them as they may be armed and dangerous. Instead, please contact the your local
               police department.
