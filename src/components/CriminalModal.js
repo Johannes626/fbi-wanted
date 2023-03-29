@@ -2,6 +2,9 @@ import React from 'react'
 import { Modal, Button } from 'react-bootstrap';
 
 function CriminalModal({modalShow, hideModal, modalData}) {
+
+    const modifiedData = modalData;
+
     return (
         <Modal
             show={modalShow}
@@ -16,12 +19,8 @@ function CriminalModal({modalShow, hideModal, modalData}) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h4>Centered Modal</h4>
-                <p>
-                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                    consectetur ac, vestibulum at eros.
-                </p>
+                
+                <p>{modalData?.details}</p>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={hideModal}>Close</Button>

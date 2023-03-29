@@ -1,0 +1,29 @@
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.customCardTitle {
+    /* font-size: 10px; doesnt work????*/
+    height: 3rem;
+    overflow: hidden;
+}
+
+.cardText{
+    height: 7.5rem;
+    overflow-y: scroll;
+    margin-bottom: .25rem;
+}
+
+.cardFooter {
+    position: relative;
+}
